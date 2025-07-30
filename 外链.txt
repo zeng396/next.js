@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>微信二维码</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    
+    <!-- 配置Tailwind自定义颜色 -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#07C160', // 微信绿色
+                        secondary: '#F5F5F5',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .qr-container {
+                @apply bg-white p-6 rounded-xl shadow-lg transition-all duration-300 hover:shadow-xl;
+            }
+            .btn-copy {
+                @apply bg-primary/10 text-primary px-4 py-2 rounded-lg transition-all duration-300 hover:bg-primary hover:text-white flex items-center gap-2;
+            }
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-secondary to-white min-h-screen flex flex-col items-center justify-center p-4 font-sans">
+    <div class="max-w-md w-full mx-auto text-center">
+        <!-- 标题区域 -->
+        <div class="mb-8">
+            <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-primary/20 mb-4">
+                <i class="fa fa-weixin text-3xl text-primary"></i>
+            </div>
+            <h1 class="text-[clamp(1.5rem,3vw,2rem)] font-bold text-gray-800 mb-2">微信二维码</h1>
+            <p class="text-gray-500">扫描下方二维码添加好友</p>
+        </div>
+        
+        <!-- 二维码容器 -->
+        <div class="qr-container mb-8">
+            <!-- 这里放置你的微信二维码图片 -->
+            <!-- 请将下面的src替换为你的微信二维码图片URL -->
+            <img id="qrCode" src="file:///E:/%E5%BE%AE%E4%BF%A1%E8%81%8A%E5%A4%A9%E8%AE%B0%E5%BD%95/xwechat_files/wxid_4nlqxzvatgx822_5d08/temp/RWTemp/2025-07/81fa5e4a00246e2d365338fb0ecf3427/176c669fdf3943057da7138217fc6437.jpg
+              " alt="微信二维码" class="w-64 h-64 mx-auto mb-4 object-contain">
+            
+            <p class="text-gray-600 text-sm">请使用微信扫描上方二维码</p>
+        </div>
+        
+        <!-- 链接和复制功能 -->
+        <div class="bg-white p-4 rounded-lg shadow flex items-center justify-between mb-6">
+            <input type="text" id="linkInput" value="https://your-qr-link.com" class="flex-1 text-sm text-gray-600 focus:outline-none" readonly>
+            <button id="copyBtn" class="btn-copy">
+                <i class="fa fa-copy"></i>
+                <span>复制链接</span>
+            </button>
+        </div>
+        
+        <!-- 提示信息 -->
+        <div id="copyMessage" class="hidden mb-6 p-3 bg-green-100 text-green-800 rounded-lg text-sm">
+            <i class="fa fa-check-circle"></i> 链接已复制到剪贴板
+        </div>
+        
+        <!-- 页脚 -->
+        <footer class="text-gray-400 text-xs mt-8">
+            <p>使用此页面分享你的微信二维码</p>
+        </footer>
+    </div>
+
+    <script>
+        // 复制链接功能
+        const copyBtn = document.getElementById('copyBtn');
+        const linkInput = document.getElementById('linkInput');
+        const copyMessage = document.getElementById('copyMessage');
+        
+        copyBtn.addEventListener('click', () => {
+            // 复制输入框中的文本
+            linkInput.select();
+            document.execCommand('copy');
+            
+            // 显示复制成功消息
+            copyMessage.classList.remove('hidden');
+            copyMessage.classList.add('flex', 'items-center', 'gap-2');
+            
+            // 3秒后隐藏消息
+            setTimeout(() => {
+                copyMessage.classList.add('hidden');
+                copyMessage.classList.remove('flex', 'items-center', 'gap-2');
+            }, 3000);
+        });
+        
+        // 你可以在这里添加图片上传功能，允许用户上传自己的二维码
+        // 示例代码（需要后端支持才能保存图片）：
+        /*
+        document.getElementById('uploadBtn').addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = (event) => {
+                    document.getElementById('qrCode').src = event.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+        */
+    </script>
+</body>
+</html>
